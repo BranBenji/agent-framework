@@ -50,6 +50,7 @@
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="11.0.0" />
     <PackageVersion Include="Microsoft.Bcl.HashCode" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Bcl.Memory" Version="10.0.13" />
+    <PackageVersion Include="Std.UriTemplate" Version="2.0.13" />
     <PackageVersion Include="System.ClientModel" Version="1.16.0" />
     <PackageVersion Include="System.CodeDom" Version="10.0.12" />
     <PackageVersion Include="System.Collections.Immutable" Version="10.0.12" />

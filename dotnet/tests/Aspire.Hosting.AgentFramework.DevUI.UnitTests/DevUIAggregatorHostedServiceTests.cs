@@ -442,6 +442,90 @@ public class DevUIAggregatorHostedServiceTests
     }
 
     [Fact]
+    public async Task ProxyRequest_EntityRoute_PreservesBackslashesInIdentifierAsync()
+    {
+        // Arrange
+        await using var proxy = await ProxyTestContext.StartAsync();
+
+        // Act
+        using var response = await proxy.SendAsync("/v1/entities/test-backend/item%5C..%5Cdetails");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        var forwarded = Assert.Single(proxy.BackendRequests);
+        Assert.Equal("/v1/entities/item\\..\\details", forwarded.Path);
+    }
+
+    [Theory]
+    [InlineData("/v1/conversations")]
+    [InlineData("/devui")]
+    public async Task ProxyRequest_CatchAllRoute_PreservesBackslashesInPathAsync(string route)
+    {
+        // Arrange
+        await using var proxy = await ProxyTestContext.StartAsync();
+
+        // Act
+        using var response = await proxy.SendAsync($"{route}/item%5C..%5Cdetails?limit=10");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        var forwarded = Assert.Single(proxy.BackendRequests);
+        Assert.Equal($"{route}/item\\..\\details", forwarded.Path);
+        Assert.Equal("?limit=10", forwarded.QueryString);
+    }
+
+    [Fact]
+    public async Task ProxyRequest_EntityRoute_PreservesNestedPathAsync()
+    {
+        // Arrange
+        await using var proxy = await ProxyTestContext.StartAsync();
+
+        // Act
+        using var response = await proxy.SendAsync("/v1/entities/test-backend/agent/details");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal("/v1/entities/agent/details", Assert.Single(proxy.BackendRequests).Path);
+    }
+
+    [Theory]
+    [InlineData("/v1/conversations", "/v1/conversations")]
+    [InlineData("/devui", "/devui")]
+    [InlineData("/v1/entities/test-backend", "/v1/entities")]
+    public async Task ProxyRequest_RouteValue_PreservesReservedCharactersAsync(string route, string backendRoute)
+    {
+        // Arrange
+        await using var proxy = await ProxyTestContext.StartAsync();
+
+        // Act
+        using var response = await proxy.SendAsync($"{route}/item%3Fpart%23name%25");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        var forwarded = Assert.Single(proxy.BackendRequests);
+        Assert.Equal($"{backendRoute}/item?part#name%", forwarded.Path);
+        Assert.Empty(forwarded.QueryString);
+    }
+
+    [Theory]
+    [InlineData("/v1/conversations/conv_123/items", "/v1/conversations/conv_123/items")]
+    [InlineData("/devui/assets/index.js", "/devui/assets/index.js")]
+    public async Task ProxyRequest_CatchAllRoute_PreservesNestedPathAsync(string requestPath, string backendPath)
+    {
+        // Arrange
+        await using var proxy = await ProxyTestContext.StartAsync();
+
+        // Act
+        using var response = await proxy.SendAsync($"{requestPath}?value=one%26two");
+
+        // Assert
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        var forwarded = Assert.Single(proxy.BackendRequests);
+        Assert.Equal(backendPath, forwarded.Path);
+        Assert.Equal("?value=one%26two", forwarded.QueryString);
+    }
+
+    [Fact]
     public async Task ProxyRequest_ConversationRoute_ForwardsToConfiguredBackendAsync()
     {
         // Arrange

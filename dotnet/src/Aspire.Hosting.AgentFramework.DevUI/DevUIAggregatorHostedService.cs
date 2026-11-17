@@ -324,7 +324,7 @@ internal sealed class DevUIAggregatorHostedService : IAsyncDisposable
             return;
         }
 
-        var targetPath = string.IsNullOrEmpty(path) ? "/devui/" : $"/devui/{path}";
+        var targetPath = string.IsNullOrEmpty(path) ? "/devui/" : ExpandRoutePath("/devui{/path*}", path);
         await ProxyRequestAsync(
             context, firstBackendUrl, targetPath + context.Request.QueryString, bodyBytes: null).ConfigureAwait(false);
     }
@@ -637,7 +637,7 @@ internal sealed class DevUIAggregatorHostedService : IAsyncDisposable
 
         var httpClientFactory = context.RequestServices.GetRequiredService<IHttpClientFactory>();
         using var client = httpClientFactory.CreateClient("devui-proxy");
-        var targetUrl = new Uri(new Uri(backendUrl), $"/v1/entities/{actualPath}");
+        var targetUrl = new Uri(new Uri(backendUrl), ExpandRoutePath("/v1/entities{/path*}", actualPath));
 
         using var response = await client.GetAsync(targetUrl, context.RequestAborted).ConfigureAwait(false);
         await CopyResponseAsync(response, context).ConfigureAwait(false);
@@ -751,6 +751,10 @@ internal sealed class DevUIAggregatorHostedService : IAsyncDisposable
 
     private async Task ProxyConversationsAsync(HttpContext context, string? path)
     {
+        var targetPath = string.IsNullOrEmpty(path)
+            ? "/v1/conversations"
+            : ExpandRoutePath("/v1/conversations{/path*}", path);
+
         // Try to determine the backend from agent_id query param or request body
         string? backendUrl = null;
         string? actualAgentId = null;
@@ -809,8 +813,6 @@ internal sealed class DevUIAggregatorHostedService : IAsyncDisposable
                     }
 
                     bodyBytes = JsonSerializer.SerializeToUtf8Bytes(json);
-                    var targetPath = string.IsNullOrEmpty(path) ? "/v1/conversations" : $"/v1/conversations/{path}";
-
                     // Also rewrite query string agent_id if present
                     var bodyQueryString = (agentId is not null)
                         ? RewriteAgentIdInQueryString(context.Request.QueryString, actualId)
@@ -830,9 +832,8 @@ internal sealed class DevUIAggregatorHostedService : IAsyncDisposable
                 return;
             }
 
-            var targetPathFallback = string.IsNullOrEmpty(path) ? "/v1/conversations" : $"/v1/conversations/{path}";
             await ProxyRequestAsync(
-                context, backendUrl, targetPathFallback + queryString, bodyBytes).ConfigureAwait(false);
+                context, backendUrl, targetPath + queryString, bodyBytes).ConfigureAwait(false);
             return;
         }
 
@@ -845,18 +846,20 @@ internal sealed class DevUIAggregatorHostedService : IAsyncDisposable
             return;
         }
 
-        var convPath = string.IsNullOrEmpty(path) ? "/v1/conversations" : $"/v1/conversations/{path}";
         if (backendKnown)
         {
             await this.ProxyAndRecordConversationAsync(
-                context, backendUrl, path, convPath + queryString, bodyBytes).ConfigureAwait(false);
+                context, backendUrl, path, targetPath + queryString, bodyBytes).ConfigureAwait(false);
         }
         else
         {
             await ProxyRequestAsync(
-                context, backendUrl, convPath + queryString, bodyBytes).ConfigureAwait(false);
+                context, backendUrl, targetPath + queryString, bodyBytes).ConfigureAwait(false);
         }
     }
+
+    private static string ExpandRoutePath(string template, string path)
+        => Std.UriTemplate.Expand(template, new Dictionary<string, object> { ["path"] = path.Split('/') });
 
     /// <summary>
     /// Rewrites the agent_id query parameter to the un-prefixed value for backend routing.
