@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
 using System.Reflection;
+using System.Threading;
 
 namespace Microsoft.Agents.AI.Workflows.UnitTests;
 
@@ -128,6 +129,59 @@ public partial class WorkflowBuilderTests
         Assert.Single(workflow.ExecutorBindings);
         Assert.Contains("start", workflow.ExecutorBindings!);
         Assert.Equal(typeof(NoOpExecutor), workflow.ExecutorBindings["start"].ExecutorType);
+    }
+
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    public void RebindFunction_WithConflictingSharingDeclarations_Throws(bool returnsOutput, bool firstThreadsafe)
+    {
+        // Arrange
+        (ExecutorBinding first, ExecutorBinding second) = CreateFunctionBindings(returnsOutput, firstThreadsafe, !firstThreadsafe);
+        WorkflowBuilder builder = new(first);
+
+        // Act
+        InvalidOperationException exception = Assert.Throws<InvalidOperationException>(() => builder.BindExecutor(second));
+
+        // Assert
+        Assert.Contains("different sharing or reset capabilities", exception.Message);
+        Assert.Contains("function", exception.Message);
+    }
+
+    [Theory]
+    [InlineData(false, false)]
+    [InlineData(false, true)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    public void RebindFunction_WithMatchingSharingDeclarations_PreservesBinding(bool returnsOutput, bool threadsafe)
+    {
+        // Arrange
+        (ExecutorBinding first, ExecutorBinding second) = CreateFunctionBindings(returnsOutput, threadsafe, threadsafe);
+        WorkflowBuilder builder = new(first);
+
+        // Act
+        Workflow workflow = builder.BindExecutor(second).Build();
+
+        // Assert
+        Assert.Single(workflow.ExecutorBindings);
+        Assert.Same(first, workflow.ExecutorBindings["function"]);
+    }
+
+    private static (ExecutorBinding First, ExecutorBinding Second) CreateFunctionBindings(
+        bool returnsOutput, bool firstThreadsafe, bool secondThreadsafe)
+    {
+        if (returnsOutput)
+        {
+            Func<string, IWorkflowContext, CancellationToken, string> handler = (message, _, _) => message;
+            return (handler.BindAsExecutor("function", threadsafe: firstThreadsafe),
+                    handler.BindAsExecutor("function", threadsafe: secondThreadsafe));
+        }
+
+        Action<string, IWorkflowContext, CancellationToken> action = (_, _, _) => { };
+        return (action.BindAsExecutor("function", threadsafe: firstThreadsafe),
+                action.BindAsExecutor("function", threadsafe: secondThreadsafe));
     }
 
     [Fact]

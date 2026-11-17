@@ -18,6 +18,8 @@ namespace Microsoft.Agents.AI.Workflows;
 /// State is read from the current workflow context, including pending updates and restored checkpoints.
 /// Derived executors with instance state must explicitly implement <see cref="IResettableExecutor"/>
 /// to support resetting that state between runs.
+/// The interface implementation must forward to the protected <see cref="ResetAsync"/> method;
+/// overriding the protected method alone does not implement the interface.
 /// </remarks>
 /// <typeparam name="TState">The type of state associated with this Executor.</typeparam>
 public abstract class StatefulExecutor<TState> : Executor

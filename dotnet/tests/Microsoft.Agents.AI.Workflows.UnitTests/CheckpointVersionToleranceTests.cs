@@ -18,7 +18,7 @@ namespace Microsoft.Agents.AI.Workflows.UnitTests;
 /// </summary>
 public class CheckpointVersionToleranceTests
 {
-    private sealed class EchoExecutor() : Executor("Echo")
+    private sealed class EchoExecutor() : Executor("Echo", declareCrossRunShareable: true)
     {
         protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder)
             => protocolBuilder.ConfigureRoutes(routeBuilder =>

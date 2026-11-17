@@ -30,7 +30,7 @@ internal static class ApprovalGateWorkflow
 
     internal sealed record ApprovalRequest(string Prompt);
 
-    private sealed class ApprovalGateExecutor(string id, string requestPortId) : Executor(id)
+    private sealed class ApprovalGateExecutor(string id, string requestPortId) : Executor(id, declareCrossRunShareable: true)
     {
         protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder)
             => protocolBuilder.ConfigureRoutes(routeBuilder => routeBuilder.AddHandler<string>(this.HandleAsync))
@@ -40,7 +40,7 @@ internal static class ApprovalGateWorkflow
             => context.SendMessageAsync(new ApprovalRequest(input), requestPortId, cancellationToken);
     }
 
-    private sealed class FinalizeExecutor(string id) : Executor(id)
+    private sealed class FinalizeExecutor(string id) : Executor(id, declareCrossRunShareable: true)
     {
         protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder)
             => protocolBuilder.ConfigureRoutes(routeBuilder => routeBuilder.AddHandler<string>(this.HandleAsync))

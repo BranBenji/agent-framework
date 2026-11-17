@@ -2,7 +2,7 @@
 
 namespace Microsoft.Agents.AI.Workflows.UnitTests;
 
-internal sealed class ForwardMessageExecutor<TMessage>(string id) : Executor(id) where TMessage : notnull
+internal sealed class ForwardMessageExecutor<TMessage>(string id) : Executor(id, declareCrossRunShareable: true) where TMessage : notnull
 {
     protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder)
     {

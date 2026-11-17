@@ -1145,7 +1145,7 @@ public class CheckpointResumeTests
         public string Source { get; } = source;
     }
 
-    private sealed class PreCheckpointBarrierSource(string id, string requestPortId, string sinkId) : Executor(id)
+    private sealed class PreCheckpointBarrierSource(string id, string requestPortId, string sinkId) : Executor(id, declareCrossRunShareable: true)
     {
         protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder)
             => protocolBuilder.ConfigureRoutes(routeBuilder => routeBuilder.AddHandler<string>(this.HandleAsync))
@@ -1159,7 +1159,7 @@ public class CheckpointResumeTests
         }
     }
 
-    private sealed class BarrierContributor(string id, string sinkId, string label) : Executor(id)
+    private sealed class BarrierContributor(string id, string sinkId, string label) : Executor(id, declareCrossRunShareable: true)
     {
         protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder)
             => protocolBuilder.ConfigureRoutes(routeBuilder => routeBuilder.AddHandler<string>(this.HandleAsync))
@@ -1169,7 +1169,7 @@ public class CheckpointResumeTests
             => ctx.SendMessageAsync(new BarrierContribution(label), sinkId);
     }
 
-    private sealed class RequestPortKickoff(string id, string requestPortId) : Executor(id)
+    private sealed class RequestPortKickoff(string id, string requestPortId) : Executor(id, declareCrossRunShareable: true)
     {
         protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder)
             => protocolBuilder.ConfigureRoutes(routeBuilder => routeBuilder.AddHandler<string>(this.HandleAsync))
@@ -1179,7 +1179,7 @@ public class CheckpointResumeTests
             => ctx.SendMessageAsync(new ApprovalRequest("continue?"), requestPortId);
     }
 
-    private sealed class PostCheckpointBarrierSource(string id, string sinkId) : Executor(id)
+    private sealed class PostCheckpointBarrierSource(string id, string sinkId) : Executor(id, declareCrossRunShareable: true)
     {
         protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder)
             => protocolBuilder.ConfigureRoutes(routeBuilder => routeBuilder.AddHandler<ApprovalReply>(this.HandleAsync))
@@ -1189,7 +1189,7 @@ public class CheckpointResumeTests
             => ctx.SendMessageAsync(new BarrierContribution("after"), sinkId);
     }
 
-    private sealed class BarrierSink(string id) : Executor(id)
+    private sealed class BarrierSink(string id) : Executor(id, declareCrossRunShareable: true)
     {
         protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder)
             => protocolBuilder.ConfigureRoutes(routeBuilder => routeBuilder.AddHandler<BarrierContribution>(this.HandleAsync));

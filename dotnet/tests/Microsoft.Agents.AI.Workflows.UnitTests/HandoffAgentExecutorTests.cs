@@ -765,7 +765,7 @@ internal sealed record Challenge(string Value);
 internal sealed record Response(string Value);
 
 [SendsMessage(typeof(Challenge))]
-internal sealed partial class SendsRequestExecutor(string? id = null) : ChatProtocolExecutor(id ?? nameof(SendsRequestExecutor), s_chatOptions)
+internal sealed partial class SendsRequestExecutor(string? id = null) : ChatProtocolExecutor(id ?? nameof(SendsRequestExecutor), s_chatOptions, declareCrossRunShareable: true)
 {
     internal const string ChallengeString = "{C7A762AE-7DAA-4D9C-A647-E64E6DBC35AE}";
     private static string ResponseKey { get; } = new(ChallengeString.Reverse().ToArray());

@@ -84,10 +84,9 @@ public abstract record class ExecutorBinding(string Id, Func<string, ValueTask<E
             return new(true);
         }
 
-        // If the executor supports concurrent use, then resetting is a no-op.
         if (!this.SupportsResetting)
         {
-            return new(false);
+            return new(this.SupportsConcurrentSharedExecution);
         }
 
         return this.ResetCoreAsync();

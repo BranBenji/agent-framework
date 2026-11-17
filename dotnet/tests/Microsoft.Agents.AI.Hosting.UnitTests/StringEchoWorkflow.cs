@@ -21,7 +21,7 @@ internal static class StringEchoWorkflow
             .Build();
     }
 
-    private sealed class StringEchoExecutor(string id) : Executor(id)
+    private sealed class StringEchoExecutor(string id) : Executor(id, declareCrossRunShareable: true)
     {
         protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder)
             => protocolBuilder.ConfigureRoutes(routeBuilder => routeBuilder.AddHandler<string>(this.HandleAsync))

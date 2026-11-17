@@ -311,7 +311,7 @@ public class InProcessExecutionTests
     /// Forwards every message with the handler's cancellation token, which is also the token the target executor
     /// is initialized with when this send creates it.
     /// </summary>
-    private sealed class TokenForwardingExecutor(string id) : Executor(id)
+    private sealed class TokenForwardingExecutor(string id) : Executor(id, declareCrossRunShareable: true)
     {
         protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder)
         {
@@ -337,7 +337,7 @@ public class InProcessExecutionTests
     /// <summary>
     /// Yields every message it receives. The first attempt at the given <see cref="FlakyStep"/> fails.
     /// </summary>
-    private sealed class FlakyExecutor<TMessage>(string id, FlakyStep flakyStep) : Executor(id), IAsyncDisposable where TMessage : notnull
+    private sealed class FlakyExecutor<TMessage>(string id, FlakyStep flakyStep) : Executor(id, declareCrossRunShareable: true), IAsyncDisposable where TMessage : notnull
     {
         private int _initializations;
         private int _disposals;

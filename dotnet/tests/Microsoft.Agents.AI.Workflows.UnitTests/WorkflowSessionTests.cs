@@ -18,7 +18,7 @@ namespace Microsoft.Agents.AI.Workflows.UnitTests;
 /// </summary>
 public class WorkflowSessionTests
 {
-    private sealed class ApprovalStartExecutor() : ChatProtocolExecutor("start", new() { AutoSendTurnToken = false })
+    private sealed class ApprovalStartExecutor() : ChatProtocolExecutor("start", new() { AutoSendTurnToken = false }, declareCrossRunShareable: true)
     {
         protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder) =>
             base.ConfigureProtocol(protocolBuilder).SendsMessage<ToolApprovalRequestContent>();
@@ -37,7 +37,7 @@ public class WorkflowSessionTests
         }
     }
 
-    private sealed class ApprovalResponseExecutor<T>(string id, Action onInvocation) : Executor<T, string>(id)
+    private sealed class ApprovalResponseExecutor<T>(string id, Action onInvocation) : Executor<T, string>(id, declareCrossRunShareable: true)
     {
         public override ValueTask<string> HandleAsync(
             T message,
@@ -49,7 +49,7 @@ public class WorkflowSessionTests
         }
     }
 
-    private sealed class DownstreamFailureExecutor() : Executor<string>("failure")
+    private sealed class DownstreamFailureExecutor() : Executor<string>("failure", declareCrossRunShareable: true)
     {
         public override ValueTask HandleAsync(
             string message,

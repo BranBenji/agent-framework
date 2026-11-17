@@ -49,10 +49,10 @@ public sealed class WorkflowRunActivityStopTests : IDisposable
     private static Workflow CreateWorkflow()
     {
         Func<string, string> uppercaseFunc = s => s.ToUpperInvariant();
-        var uppercase = uppercaseFunc.BindAsExecutor("UppercaseExecutor");
+        var uppercase = uppercaseFunc.BindAsExecutor("UppercaseExecutor", threadsafe: true);
 
         Func<string, string> reverseFunc = s => new string(s.Reverse().ToArray());
-        var reverse = reverseFunc.BindAsExecutor("ReverseTextExecutor");
+        var reverse = reverseFunc.BindAsExecutor("ReverseTextExecutor", threadsafe: true);
 
         WorkflowBuilder builder = new(uppercase);
         builder.AddEdge(uppercase, reverse).WithOutputFrom(reverse);

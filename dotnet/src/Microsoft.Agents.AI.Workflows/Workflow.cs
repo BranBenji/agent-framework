@@ -108,27 +108,22 @@ public class Workflow
     }
 
     private bool _needsReset;
-    private bool HasResettableExecutors =>
-        this.ExecutorBindings.Values.Any(registration => registration.SupportsResetting);
+    private bool HasExecutorsRequiringReset =>
+        this.ExecutorBindings.Values.Any(registration => registration.IsSharedInstance && !registration.SupportsConcurrentSharedExecution);
 
     private async ValueTask<bool> TryResetExecutorRegistrationsAsync()
     {
-        if (this.HasResettableExecutors)
+        foreach (ExecutorBinding registration in this.ExecutorBindings.Values)
         {
-            foreach (ExecutorBinding registration in this.ExecutorBindings.Values)
+            // TryResetAsync returns true if the executor does not need resetting.
+            if (!await registration.TryResetAsync().ConfigureAwait(false))
             {
-                // TryResetAsync returns true if the executor does not need resetting
-                if (!await registration.TryResetAsync().ConfigureAwait(false))
-                {
-                    return false;
-                }
+                return false;
             }
-
-            this._needsReset = false;
-            return true;
         }
 
-        return false;
+        this._needsReset = false;
+        return true;
     }
 
     private object? _ownerToken;
@@ -182,7 +177,7 @@ public class Workflow
                 });
         }
 
-        this._needsReset = this.HasResettableExecutors;
+        this._needsReset = this.HasExecutorsRequiringReset;
         this._ownedAsSubworkflow = subworkflow;
     }
 

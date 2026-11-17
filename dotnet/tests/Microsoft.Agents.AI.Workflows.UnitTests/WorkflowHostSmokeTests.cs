@@ -104,7 +104,7 @@ internal sealed class KickoffOnStartExecutor : ChatProtocolExecutor
         string kickoffMessageText,
         string regularResumeText,
         string regularProcessedText)
-        : base(id, s_options)
+        : base(id, s_options, declareCrossRunShareable: true)
     {
         this._downstreamExecutorId = downstreamExecutorId;
         this._kickoffInputText = kickoffInputText;
@@ -169,7 +169,7 @@ internal sealed class TurnTrackingStartExecutor : ChatProtocolExecutor
     public int ActivationCount => this._activationCount;
 
     public TurnTrackingStartExecutor(string id, string downstreamExecutorId, string activatedMarker)
-        : base(id, s_options)
+        : base(id, s_options, declareCrossRunShareable: true)
     {
         this._downstreamExecutorId = downstreamExecutorId;
         this._activatedMarker = activatedMarker;

@@ -32,7 +32,7 @@ internal static class FanOutRequestWorkflow
 
     internal sealed record ApprovalRequest(string Prompt);
 
-    private sealed class FanOutExecutor(string id, string requestPortId, string downstreamId) : Executor(id)
+    private sealed class FanOutExecutor(string id, string requestPortId, string downstreamId) : Executor(id, declareCrossRunShareable: true)
     {
         protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder)
             => protocolBuilder.ConfigureRoutes(routeBuilder => routeBuilder.AddHandler<string>(this.HandleAsync))
@@ -47,7 +47,7 @@ internal static class FanOutRequestWorkflow
         }
     }
 
-    private sealed class DownstreamExecutor(string id) : Executor(id)
+    private sealed class DownstreamExecutor(string id) : Executor(id, declareCrossRunShareable: true)
     {
         protected override ProtocolBuilder ConfigureProtocol(ProtocolBuilder protocolBuilder)
             => protocolBuilder.ConfigureRoutes(routeBuilder => routeBuilder.AddHandler<string>(this.HandleAsync))

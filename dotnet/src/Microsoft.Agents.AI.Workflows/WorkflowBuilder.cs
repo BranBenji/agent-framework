@@ -76,6 +76,14 @@ public class WorkflowBuilder
                     throw new InvalidOperationException(
                         $"Cannot bind executor with ID '{binding.Id}' because an executor with the same ID but different instance is already bound.");
                 }
+
+                if (existing.IsSharedInstance != binding.IsSharedInstance ||
+                    existing.SupportsConcurrentSharedExecution != binding.SupportsConcurrentSharedExecution ||
+                    existing.SupportsResetting != binding.SupportsResetting)
+                {
+                    throw new InvalidOperationException(
+                        $"Cannot bind executor with ID '{binding.Id}' because an executor with the same ID but different sharing or reset capabilities is already bound.");
+                }
             }
             else
             {

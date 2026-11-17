@@ -145,14 +145,16 @@ public static class ExecutorBindingExtensions
         => factoryAsync.BindExecutor(id, options);
 
     private static ConfiguredExecutorBinding ToBinding<TInput>(this FunctionExecutor<TInput> executor, Delegate raw)
-        => new(Configured.FromInstance(executor, raw: raw)
+        => new(Configured.FromInstance(executor)
                          .Super<FunctionExecutor<TInput>, Executor>(),
-            typeof(FunctionExecutor<TInput>));
+            typeof(FunctionExecutor<TInput>),
+            raw);
 
     private static ConfiguredExecutorBinding ToBinding<TInput, TOutput>(this FunctionExecutor<TInput, TOutput> executor, Delegate raw)
-        => new(Configured.FromInstance(executor, raw: raw)
+        => new(Configured.FromInstance(executor)
                          .Super<FunctionExecutor<TInput, TOutput>, Executor>(),
-            typeof(FunctionExecutor<TInput, TOutput>));
+            typeof(FunctionExecutor<TInput, TOutput>),
+            raw);
 
     /// <summary>
     /// Configures a sub-workflow executor for the specified workflow, using the provided identifier and options.

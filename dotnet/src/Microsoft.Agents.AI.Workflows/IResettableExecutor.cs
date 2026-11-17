@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
+using System;
 using System.Threading.Tasks;
 
 namespace Microsoft.Agents.AI.Workflows;
@@ -14,10 +15,11 @@ public interface IResettableExecutor
     /// Reset the executor
     /// </summary>
     /// <returns>A <see cref="ValueTask"/> representing the completion of the reset operation.</returns>
+    /// <exception cref="InvalidOperationException">The executor does not implement this method.</exception>
     ValueTask ResetAsync()
 #if NET
     {
-        return default;
+        throw new InvalidOperationException("Executors implementing IResettableExecutor must implement ResetAsync explicitly or publicly.");
     }
 #else
     ;
