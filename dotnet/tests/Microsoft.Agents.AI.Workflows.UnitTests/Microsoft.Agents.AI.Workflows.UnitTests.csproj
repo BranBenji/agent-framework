@@ -4,8 +4,8 @@
     <NoWarn>$(NoWarn);MEAI001;MAAIW001;MAAI001</NoWarn>
   </PropertyGroup>
 
-  <!-- Evaluation tests require net8.0+ (MEAI.Evaluation does not support legacy TFMs) -->
-  <ItemGroup Condition="!$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">
+  <!-- Evaluation tests require net10.0+ (MEAI.Evaluation does not support legacy TFMs) -->
+  <ItemGroup Condition="!$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net10.0'))">
     <Compile Remove="WorkflowEvaluationTests.cs" />
   </ItemGroup>
 

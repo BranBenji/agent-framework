@@ -1,5 +1,5 @@
 # EditorConfig overrides for Cosmos DB Unit Tests
-# Multi-targeting (net472 + net9.0) causes false positives for IDE0005 (unnecessary using directives)
+# Multi-targeting (net472 + net10.0+) causes false positives for IDE0005 (unnecessary using directives)
 
 root = false
 

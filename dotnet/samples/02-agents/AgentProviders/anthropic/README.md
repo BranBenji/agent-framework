@@ -12,7 +12,7 @@ see the [How to create an agent for each provider](../README.md) samples.
 
 Before you begin, ensure you have the following prerequisites:
 
-- .NET 8.0 SDK or later
+- .NET 10.0 SDK or later
 - Anthropic API key configured
 - User has access to Anthropic Claude models
 

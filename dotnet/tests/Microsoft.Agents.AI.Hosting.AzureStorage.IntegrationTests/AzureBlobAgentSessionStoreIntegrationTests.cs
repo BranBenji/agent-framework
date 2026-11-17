@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,7 +15,7 @@ namespace Microsoft.Agents.AI.Hosting.AzureStorage.IntegrationTests;
 
 public sealed class AzureBlobAgentSessionStoreIntegrationTests
 {
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
     [Fact(Skip = "Requires a provisioned Azure Storage account and data-plane permissions in CI.")]
     public async Task HostedAgentThroughTestServer_PersistsSessionInLiveBlobStorageAsync()
     {

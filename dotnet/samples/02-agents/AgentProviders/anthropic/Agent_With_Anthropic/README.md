@@ -12,7 +12,7 @@ The sample supports three deployment scenarios:
 
 Before you begin, ensure you have the following prerequisites:
 
-- .NET 8.0 SDK or later
+- .NET 10.0 SDK or later
 
 ### For Anthropic Public API
 

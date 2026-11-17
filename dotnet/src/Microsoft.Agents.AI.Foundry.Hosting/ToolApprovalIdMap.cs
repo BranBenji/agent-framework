@@ -55,12 +55,8 @@ internal static class ToolApprovalIdMap
     {
         ArgumentNullException.ThrowIfNull(afRequestId);
 
-#if NET10_0_OR_GREATER
         Span<byte> hash = stackalloc byte[32];
         SHA256.HashData(Encoding.UTF8.GetBytes(afRequestId), hash);
-#else
-        byte[] hash = SHA256.HashData(Encoding.UTF8.GetBytes(afRequestId));
-#endif
         // 25 bytes = 50 hex chars (matches SDK body length 50).
         return "mcpr_" + Convert.ToHexString(hash).AsSpan(0, 50).ToString();
     }

@@ -47,31 +47,25 @@
     <!-- Newtonsoft.Json -->
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <!-- System.* -->
-    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Condition="'$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net9.0'" Version="10.0.15" />
-    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Condition="'$(TargetFramework)' != 'net8.0' And '$(TargetFramework)' != 'net9.0'" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="11.0.0" />
     <PackageVersion Include="Microsoft.Bcl.HashCode" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Bcl.Memory" Version="10.0.13" />
     <PackageVersion Include="System.ClientModel" Version="1.16.0" />
     <PackageVersion Include="System.CodeDom" Version="10.0.12" />
     <PackageVersion Include="System.Collections.Immutable" Version="10.0.12" />
     <PackageVersion Include="System.CommandLine" Version="2.0.12" />
-    <PackageVersion Include="System.Diagnostics.DiagnosticSource" Condition="'$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net9.0'" Version="10.0.15" />
-    <PackageVersion Include="System.Diagnostics.DiagnosticSource" Condition="'$(TargetFramework)' != 'net8.0' And '$(TargetFramework)' != 'net9.0'" Version="11.0.0" />
+    <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="11.0.0" />
     <PackageVersion Include="System.Linq.AsyncEnumerable" Version="10.0.13" />
     <PackageVersion Include="System.Net.Http.Json" Version="10.0.12" />
-    <PackageVersion Include="System.Net.ServerSentEvents" Version="10.0.13" />
     <!-- AG-UI .NET SDK packages (published by the AG-UI team). -->
     <PackageVersion Include="AGUI.Abstractions" Version="1.0.0" />
     <PackageVersion Include="AGUI.Formatting" Version="1.0.0" />
     <PackageVersion Include="AGUI.Protobuf" Version="1.0.0" />
     <PackageVersion Include="AGUI.Client" Version="1.0.0" />
     <PackageVersion Include="AGUI.Server" Version="1.0.0" />
-    <PackageVersion Include="System.Text.Json" Condition="'$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net9.0'" Version="10.0.15" />
-    <PackageVersion Include="System.Text.Json" Condition="'$(TargetFramework)' != 'net8.0' And '$(TargetFramework)' != 'net9.0'" Version="11.0.0" />
-    <PackageVersion Include="System.Threading.Channels" Condition="'$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net9.0'" Version="10.0.15" />
-    <PackageVersion Include="System.Threading.Channels" Condition="'$(TargetFramework)' != 'net8.0' And '$(TargetFramework)' != 'net9.0'" Version="11.0.0" />
+    <PackageVersion Include="System.Text.Json" Version="11.0.0" />
+    <PackageVersion Include="System.Threading.Channels" Version="11.0.0" />
     <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.6.3" />
-    <PackageVersion Include="System.Net.Security" Version="4.3.2" />
     <!-- OpenTelemetry -->
     <PackageVersion Include="OpenTelemetry" Version="1.18.0" />
     <PackageVersion Include="OpenTelemetry.Api" Version="1.18.0" />
@@ -102,15 +96,13 @@
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="10.0.14" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.14" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.14" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Condition="'$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net9.0'" Version="10.0.15" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Condition="'$(TargetFramework)' != 'net8.0' And '$(TargetFramework)' != 'net9.0'" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="11.0.0" />
     <PackageVersion Include="Microsoft.Extensions.FileSystemGlobbing" Version="10.0.14" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.14" />
     <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.14" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.10.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="10.0.14" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Condition="'$(TargetFramework)' == 'net8.0' Or '$(TargetFramework)' == 'net9.0'" Version="10.0.15" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Condition="'$(TargetFramework)' != 'net8.0' And '$(TargetFramework)' != 'net9.0'" Version="11.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="11.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="10.0.14" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.10.0" />
     <PackageVersion Include="Microsoft.Extensions.VectorData.Abstractions" Version="10.10.0" />
@@ -157,8 +149,6 @@
     <!-- AWS -->
     <PackageVersion Include="AWS.Bedrock.MEAI" Version="1.0.0" />
     <!-- Test -->
-    <PackageVersion Include="Microsoft.AspNetCore.TestHost" Condition="'$(TargetFramework)' == 'net8.0'" Version="8.0.31" />
-    <PackageVersion Include="Microsoft.AspNetCore.TestHost" Condition="'$(TargetFramework)' == 'net9.0'" Version="9.0.20" />
     <PackageVersion Include="Microsoft.AspNetCore.TestHost" Condition="'$(TargetFramework)' == 'net10.0'" Version="10.0.12" />
     <PackageVersion Include="Microsoft.AspNetCore.TestHost" Condition="'$(TargetFramework)' == 'net11.0'" Version="11.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.10.0" />

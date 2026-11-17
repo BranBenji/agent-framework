@@ -21,7 +21,7 @@ Then navigate to: https://localhost:50516/devui
 
 ## Requirements
 
-- .NET 8.0 or later
+- .NET 10.0 or later
 - ASP.NET Core
 - Azure OpenAI credentials
 

@@ -191,7 +191,7 @@ public sealed class DefaultHttpRequestHandler : IHttpRequestHandler
 
     private static async Task<string> ReadResponseBodyAsStringAsync(HttpContent content, CancellationToken cancellationToken)
     {
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
         await content.LoadIntoBufferAsync(MaxResponseBodySize, cancellationToken).ConfigureAwait(false);
 #else
         Task readTask = content.LoadIntoBufferAsync(MaxResponseBodySize);

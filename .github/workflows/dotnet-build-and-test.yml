@@ -102,11 +102,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        # Each leg builds every TFM in the solution; targetFramework only selects the package install check.
         include:
           - { targetFramework: "net11.0", os: "ubuntu-latest", configuration: Release }
           - { targetFramework: "net10.0", os: "ubuntu-latest", configuration: Release }
-          - { targetFramework: "net9.0", os: "windows-latest", configuration: Debug }
-          - { targetFramework: "net8.0", os: "ubuntu-latest", configuration: Release }
+          - { targetFramework: "net11.0", os: "windows-latest", configuration: Debug }
           - { targetFramework: "net472", os: "windows-latest", configuration: Release }
 
     runs-on: ${{ matrix.os }}

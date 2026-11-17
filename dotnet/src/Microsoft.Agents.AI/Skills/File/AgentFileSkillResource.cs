@@ -39,7 +39,7 @@ internal sealed class AgentFileSkillResource : AgentSkillResource
     {
         string validatedPath = AgentFileSkillPathValidator.ValidateForUse(this.FullPath, this._scope, "Resource", this.Name);
 
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
         return await File.ReadAllTextAsync(validatedPath, Encoding.UTF8, cancellationToken).ConfigureAwait(false);
 #else
         using var reader = new StreamReader(validatedPath, Encoding.UTF8);

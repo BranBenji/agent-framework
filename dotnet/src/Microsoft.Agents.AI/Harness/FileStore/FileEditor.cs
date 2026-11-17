@@ -40,7 +40,7 @@ internal static class FileEditor
                 "or provide a more specific old_string.");
         }
 
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
         return (content.Replace(oldString, newString, StringComparison.Ordinal), count);
 #else
         return (content.Replace(oldString, newString), count);

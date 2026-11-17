@@ -70,7 +70,7 @@ public sealed class FileSystemAgentFileStore : AgentFileStore
             Directory.CreateDirectory(parentDir);
         }
 
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
         await File.WriteAllTextAsync(fullPath, content, Encoding.UTF8, cancellationToken).ConfigureAwait(false);
 #else
         using var writer = new StreamWriter(fullPath, false, Encoding.UTF8);
@@ -88,7 +88,7 @@ public sealed class FileSystemAgentFileStore : AgentFileStore
             return null;
         }
 
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
         return await File.ReadAllTextAsync(fullPath, Encoding.UTF8, cancellationToken).ConfigureAwait(false);
 #else
         using var reader = new StreamReader(fullPath, Encoding.UTF8);
@@ -200,7 +200,7 @@ public sealed class FileSystemAgentFileStore : AgentFileStore
                 }
 
                 // Read file content.
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
                 string fileContent = await timeout.RunStepAsync(
                     token => File.ReadAllTextAsync(filePath, Encoding.UTF8, token)).ConfigureAwait(false);
 #else

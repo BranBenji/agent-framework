@@ -1,6 +1,6 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 
-#if !NET8_0_OR_GREATER
+#if !NET10_0_OR_GREATER
 
 namespace System.Diagnostics.CodeAnalysis;
 

@@ -15,13 +15,8 @@ internal sealed partial class IdGenerator
     private readonly string _partitionId;
     private readonly Random? _random;
 
-#if NET9_0_OR_GREATER
     [GeneratedRegex("^[A-Za-z0-9]+$")]
     private static partial Regex WatermarkRegex();
-#else
-    private static readonly Regex s_watermarkRegex = new("^[A-Za-z0-9]+$", RegexOptions.Compiled);
-    private static Regex WatermarkRegex() => s_watermarkRegex;
-#endif
 
     /// <summary>
     /// Initializes a new instance of the <see cref="IdGenerator"/> class.
@@ -146,18 +141,7 @@ internal sealed partial class IdGenerator
         const string Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         if (random is not null)
         {
-#if NET10_0_OR_GREATER
             return random.GetString(Chars, stringLength);
-#else
-            // Use deterministic random generation when seed is provided
-            return string.Create(stringLength, random, static (destination, random) =>
-            {
-                for (int i = 0; i < destination.Length; i++)
-                {
-                    destination[i] = Chars[random.Next(Chars.Length)];
-                }
-            });
-#endif
         }
 
         // Use cryptographically secure random generation when no seed is provided

@@ -613,7 +613,7 @@ The CodeAct Hyperlight provider ships as an optional NuGet package:
   - `Microsoft.Agents.AI.Abstractions` (for `AIContextProvider`, `AIContext`)
   - `Microsoft.Extensions.AI.Abstractions` (for `AIFunction`, `ApprovalRequiredAIFunction`)
   - `Hyperlight.HyperlightSandbox.Api` (for sandbox API)
-- **Target framework**: `net8.0`
+- **Target frameworks**: `net10.0` and `net11.0`
 
 This keeps CodeAct and its native sandbox dependencies optional — users who do not need CodeAct do not take on the Hyperlight installation and dependency footprint.
 

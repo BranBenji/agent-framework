@@ -4,7 +4,7 @@
     <NoWarn>$(NoWarn);MAAI001</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">
+  <PropertyGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net10.0'))">
     <JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
   </PropertyGroup>
 
@@ -13,8 +13,8 @@
     <ProjectReference Include="..\..\src\Microsoft.Agents.AI.CopilotStudio\Microsoft.Agents.AI.CopilotStudio.csproj" />
   </ItemGroup>
 
-  <!-- Evaluation tests require net8.0+ (MEAI.Evaluation does not support legacy TFMs) -->
-  <ItemGroup Condition="!$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">
+  <!-- Evaluation tests require net10.0+ (MEAI.Evaluation does not support legacy TFMs) -->
+  <ItemGroup Condition="!$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net10.0'))">
     <Compile Remove="EvaluationTests.cs" />
     <Compile Remove="AgentSkills\HostedAgentSkillsPatternTests.cs" />
   </ItemGroup>

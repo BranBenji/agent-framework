@@ -14,9 +14,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.AI;
 using Microsoft.Extensions.DependencyInjection;
-#if !NET10_0_OR_GREATER
-using Microsoft.Extensions.Logging;
-#endif
 using Microsoft.Extensions.Options;
 
 namespace Microsoft.Agents.AI.Hosting.AGUI.AspNetCore;
@@ -270,16 +267,10 @@ public static class AGUIEndpointRouteBuilderExtensions
             // Wrap the event stream to save the session after streaming completes.
             var eventsWithSessionSave = SaveSessionAfterStreamingAsync(events, hostAgent, threadId, session, cancellationToken);
 
-#if NET10_0_OR_GREATER
-            // On net10+ the framework provides first-class SSE result that flows through the
+            // The framework provides a first-class SSE result that flows through the
             // configured ASP.NET Core JsonSerializerOptions (which AddAGUIServer() augments with
             // AGUIJsonSerializerContext via the resolver chain).
             return TypedResults.ServerSentEvents(eventsWithSessionSave);
-#else
-            // On older TFMs we ship a small polyfill that emulates TypedResults.ServerSentEvents.
-            var sseLogger = context.RequestServices.GetRequiredService<ILogger<AGUIServerSentEventsResult>>();
-            return new AGUIServerSentEventsResult(eventsWithSessionSave, sseLogger);
-#endif
         });
 
         MarkFeatureUsed();

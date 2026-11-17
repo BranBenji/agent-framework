@@ -13,7 +13,7 @@ This sample demonstrates how to use extended thinking/reasoning capabilities wit
 
 Before you begin, ensure you have the following prerequisites:
 
-- .NET 8.0 SDK or later
+- .NET 10.0 SDK or later
 - Anthropic API key configured
 - Access to Anthropic Claude models with extended thinking support
 

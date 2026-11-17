@@ -207,7 +207,6 @@ internal sealed class InMemoryConversationStorage : IConversationStorage, IDispo
     /// </summary>
     private sealed class ConversationState
     {
-#if NET9_0_OR_GREATER
         private readonly OrderedDictionary<string, ItemResource> _items = [];
         private readonly object _lock = new();
 
@@ -272,73 +271,6 @@ internal sealed class InMemoryConversationStorage : IConversationStorage, IDispo
                 return this._items.Remove(itemId);
             }
         }
-#else
-        private readonly List<ItemResource> _items = [];
-        private readonly object _lock = new();
-
-        public ConversationState(Conversation conversation)
-        {
-            this.Conversation = conversation;
-        }
-
-        public Conversation Conversation
-        {
-            get
-            {
-                lock (this._lock)
-                {
-                    return field;
-                }
-            }
-
-            private set;
-        }
-
-        public void UpdateConversation(Conversation conversation)
-        {
-            lock (this._lock)
-            {
-                this.Conversation = conversation;
-            }
-        }
-
-        public void AddItem(ItemResource item)
-        {
-            lock (this._lock)
-            {
-                if (this._items.Exists(i => i.Id == item.Id))
-                {
-                    throw new InvalidOperationException($"Item with ID '{item.Id}' already exists.");
-                }
-
-                this._items.Add(item);
-            }
-        }
-
-        public ItemResource? GetItem(string itemId)
-        {
-            lock (this._lock)
-            {
-                return this._items.Find(i => i.Id == itemId);
-            }
-        }
-
-        public List<ItemResource> GetAllItems()
-        {
-            lock (this._lock)
-            {
-                return this._items.ToList();
-            }
-        }
-
-        public bool RemoveItem(string itemId)
-        {
-            lock (this._lock)
-            {
-                return this._items.RemoveAll(i => i.Id == itemId) > 0;
-            }
-        }
-#endif
     }
 
     public void Dispose()

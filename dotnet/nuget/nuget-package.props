@@ -59,6 +59,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- net8.0 and net9.0 were intentionally dropped; skip baseline package validation for those frameworks. -->
+    <PackageValidationBaselineFrameworkToIgnore Include="net8.0;net9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- SourceLink allows step-through debugging for source hosted on GitHub. -->
     <!-- https://github.com/dotnet/sourcelink -->
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />

@@ -43,13 +43,13 @@ public class CosmosCheckpointStoreTests : IAsyncLifetime, IDisposable
     private bool _emulatorAvailable;
     private bool _preserveContainer;
 
-    // JsonSerializerOptions configured for .NET 9+ compatibility
+    // JsonSerializerOptions configured for modern .NET
     private static readonly JsonSerializerOptions s_jsonOptions = CreateJsonOptions();
 
     private static JsonSerializerOptions CreateJsonOptions()
     {
         var options = new JsonSerializerOptions();
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
         options.TypeInfoResolver = new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver();
 #endif
         return options;

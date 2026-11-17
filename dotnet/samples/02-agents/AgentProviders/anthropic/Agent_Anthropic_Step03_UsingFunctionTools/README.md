@@ -14,7 +14,7 @@ This sample demonstrates how to use function tools with Anthropic Claude agents,
 
 Before you begin, ensure you have the following prerequisites:
 
-- .NET 8.0 SDK or later
+- .NET 10.0 SDK or later
 - Anthropic API key configured
 
 **Note**: This sample uses Anthropic Claude models. For more information, see [Anthropic documentation](https://docs.anthropic.com/).

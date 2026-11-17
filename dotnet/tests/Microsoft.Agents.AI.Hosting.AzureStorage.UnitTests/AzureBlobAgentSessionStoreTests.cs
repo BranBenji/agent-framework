@@ -9,7 +9,7 @@ using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Logging;
 using Shared.UnitTests;
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
 using Microsoft.Agents.AI.Hosting.AzureStorage.Tests;
 #endif
 
@@ -359,7 +359,7 @@ public sealed class AzureBlobAgentSessionStoreTests : IAsyncLifetime
         Assert.Equal(16, blobs.Count);
     }
 
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
     [Fact]
     public async Task HostedAgentThroughTestServer_PersistsSessionInAzuriteAsync()
     {

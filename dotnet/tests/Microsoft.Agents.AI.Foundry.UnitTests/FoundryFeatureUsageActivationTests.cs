@@ -41,7 +41,7 @@ public sealed class FoundryFeatureUsageActivationTests : IDisposable
             testClient.Client,
             "memory-store",
             _ => new(new FoundryMemoryProviderScope("scope")));
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
         _ = new FoundryEvals(testClient.Client, "gpt-4o-mini");
 #endif
 
@@ -134,7 +134,7 @@ public sealed class FoundryFeatureUsageActivationTests : IDisposable
         AssertFeatureUsed(FeatureIndex.FoundryMemory);
     }
 
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
     [Fact]
     public async Task FoundryEvals_FirstEvaluationMarksFeatureAsync()
     {

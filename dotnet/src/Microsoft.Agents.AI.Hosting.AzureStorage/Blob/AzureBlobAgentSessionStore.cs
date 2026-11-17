@@ -247,7 +247,7 @@ public sealed class AzureBlobAgentSessionStore : AgentSessionStore
     private static string ComputeKey(string value)
     {
         byte[] input = s_strictUtf8.GetBytes(value);
-#if NET8_0_OR_GREATER
+#if NET10_0_OR_GREATER
         return Convert.ToHexString(SHA256.HashData(input));
 #else
         using SHA256 sha256 = SHA256.Create();
@@ -280,7 +280,7 @@ public sealed class AzureBlobAgentSessionStore : AgentSessionStore
         }
     }
 
-#if !NET8_0_OR_GREATER
+#if !NET10_0_OR_GREATER
     private static char ToHexChar(int value)
         => (char)(value < 10 ? '0' + value : 'A' + value - 10);
 #endif

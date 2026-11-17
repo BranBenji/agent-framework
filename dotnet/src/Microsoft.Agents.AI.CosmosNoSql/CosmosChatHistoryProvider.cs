@@ -52,17 +52,15 @@ public sealed class CosmosChatHistoryProvider : ChatHistoryProvider, IDisposable
     private bool _disposed;
 
     /// <summary>
-    /// Cached JSON serializer options for .NET 9.0 compatibility.
+    /// Cached JSON serializer options.
     /// </summary>
     private static readonly JsonSerializerOptions s_defaultJsonOptions = CreateDefaultJsonOptions();
 
     private static JsonSerializerOptions CreateDefaultJsonOptions()
     {
         var options = new JsonSerializerOptions();
-#if NET9_0_OR_GREATER
-        // Configure TypeInfoResolver for .NET 9.0 to enable JSON serialization
+        // Configure TypeInfoResolver to enable JSON serialization
         options.TypeInfoResolver = new System.Text.Json.Serialization.Metadata.DefaultJsonTypeInfoResolver();
-#endif
         return options;
     }
 

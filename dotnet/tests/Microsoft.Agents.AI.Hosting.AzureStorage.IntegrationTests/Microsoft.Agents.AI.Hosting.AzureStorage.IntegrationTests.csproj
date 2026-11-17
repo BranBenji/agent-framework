@@ -8,7 +8,7 @@
     <PackageReference Include="Azure.Identity" />
   </ItemGroup>
 
-  <ItemGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">
+  <ItemGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net10.0'))">
     <PackageReference Include="AGUI.Abstractions" />
     <PackageReference Include="AGUI.Client" />
     <PackageReference Include="AGUI.Server" />
@@ -19,7 +19,7 @@
     <ProjectReference Include="..\..\src\Microsoft.Agents.AI.Hosting.AzureStorage\Microsoft.Agents.AI.Hosting.AzureStorage.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net8.0'))">
+  <ItemGroup Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net10.0'))">
     <ProjectReference Include="..\..\src\Microsoft.Agents.AI.Hosting.AGUI.AspNetCore\Microsoft.Agents.AI.Hosting.AGUI.AspNetCore.csproj" />
     <Compile Include="..\Microsoft.Agents.AI.Hosting.AzureStorage.TestUtilities\*.cs" LinkBase="TestUtilities" />
   </ItemGroup>

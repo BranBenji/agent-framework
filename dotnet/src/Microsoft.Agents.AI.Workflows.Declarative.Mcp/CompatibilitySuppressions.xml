@@ -32,34 +32,6 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Microsoft.Agents.AI.Workflows.Declarative.Mcp.DefaultMcpToolHandler.#ctor(System.Func{System.String,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.HttpClient}})</Target>
-    <Left>lib/net8.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Left>
-    <Right>lib/net8.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Microsoft.Agents.AI.Workflows.Declarative.Mcp.DefaultMcpToolHandler.DisposeAsync</Target>
-    <Left>lib/net8.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Left>
-    <Right>lib/net8.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Microsoft.Agents.AI.Workflows.Declarative.Mcp.DefaultMcpToolHandler.#ctor(System.Func{System.String,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.HttpClient}})</Target>
-    <Left>lib/net9.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Left>
-    <Right>lib/net9.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Microsoft.Agents.AI.Workflows.Declarative.Mcp.DefaultMcpToolHandler.DisposeAsync</Target>
-    <Left>lib/net9.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Left>
-    <Right>lib/net9.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Microsoft.Agents.AI.Workflows.Declarative.Mcp.DefaultMcpToolHandler.#ctor(System.Func{System.String,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.HttpClient}})</Target>
     <Left>lib/netstandard2.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Left>
     <Right>lib/netstandard2.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -83,20 +55,6 @@
     <Target>T:Microsoft.Agents.AI.Workflows.Declarative.Mcp.DefaultMcpToolHandler</Target>
     <Left>lib/net472/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Left>
     <Right>lib/net472/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0008</DiagnosticId>
-    <Target>T:Microsoft.Agents.AI.Workflows.Declarative.Mcp.DefaultMcpToolHandler</Target>
-    <Left>lib/net8.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Left>
-    <Right>lib/net8.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0008</DiagnosticId>
-    <Target>T:Microsoft.Agents.AI.Workflows.Declarative.Mcp.DefaultMcpToolHandler</Target>
-    <Left>lib/net9.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Left>
-    <Right>lib/net9.0/Microsoft.Agents.AI.Workflows.Declarative.Mcp.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>

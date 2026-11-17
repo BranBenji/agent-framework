@@ -9,7 +9,7 @@ Microsoft Agent Framework is a comprehensive .NET library for building, orchestr
 - **Multiple Provider Support**: Seamlessly integrate with various LLM providers with more being added continuously
 - **Extensible Middleware**: Flexible request/response processing with custom pipelines and exception handling
 - **Built-in Observability**: OpenTelemetry integration for distributed tracing, monitoring, and debugging
-- **Cross-Platform**: Compatible with .NET 8.0, .NET Standard 2.0, and .NET Framework for broad deployment options
+- **Cross-Platform**: Compatible with .NET 10.0 and later, .NET Standard 2.0, and .NET Framework for broad deployment options
 
 Whether you're building simple AI assistants or complex multi-agent systems, Microsoft Agent Framework provides the tools and abstractions needed to create robust, scalable AI applications in .NET.
 
