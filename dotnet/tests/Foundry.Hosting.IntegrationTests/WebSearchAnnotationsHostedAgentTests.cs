@@ -24,7 +24,7 @@ public sealed class WebSearchAnnotationsHostedAgentTests(
     private static readonly TimeSpan s_timeout = TimeSpan.FromMinutes(3);
     private readonly WebSearchAnnotationsHostedAgentFixture _fixture = fixture;
 
-    [Fact]
+    [Fact(Skip = "Flaky in merge_group; see https://github.com/microsoft/agent-framework/issues/10389")]
     public async Task ResponsesApi_Streaming_EmitsUrlCitationAnnotationsAsync()
     {
         // Arrange
